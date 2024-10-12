@@ -37,7 +37,7 @@ PaginationItem.displayName = "PaginationItem"
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"div">
 
 const PaginationLink = ({
   className,
@@ -45,13 +45,14 @@ const PaginationLink = ({
   size = "icon",
   ...props
 }: PaginationLinkProps) => (
-  <a
+  <div
     aria-current={isActive ? "page" : undefined}
-    className={cn(
+    className={cn( 'hover:cursor-pointer',
       buttonVariants({
         variant: isActive ? "outline" : "ghost",
         size,
       }),
+      `${isActive && 'hover:cursor-default hover:bg-inherit'}`,
       className
     )}
     {...props}

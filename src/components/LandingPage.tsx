@@ -1,11 +1,12 @@
-import React from "react";
+import Header from "./Header";
+import AboutDrawer from "./AboutDrawer";
 
 const LandingPage = () => {
-  return (
-    <>
-      <h1 className="text-5xl font-hylian text-center lg:text-5xl">The Hyrule Compendium</h1>
 
-    </>
+  return (
+    <main className="p-2 flex flex-col gap-2">
+      <AboutDrawer />
+    </main>
   )
 }
 

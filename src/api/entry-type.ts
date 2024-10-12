@@ -3,7 +3,8 @@ type Entry = {
   name: string,
   id: number,
   category: string,
-  descriptiong: string,
+  description: string,
+  descriptionShort: string,
   image: string,
   common_locations: string[] | null,
   dlc: boolean
