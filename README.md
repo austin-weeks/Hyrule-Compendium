@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+# Pacer Code Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Hey Pacer folks 👋!
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## The App - Hyrule Compendium Dashboard
+I chose to build a dashboard that displays in-game items from the most recent *The Legend of Zelda* games: *Breath of the Wild* and *Tears of the Kindgom*.
 
-## Expanding the ESLint configuration
+You can view the app via the [GitHub Pages]() site, or by running the app locally.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+To run locally, download or clone the repo, install dependencies, and run a preview of the app with Vite.
+```bash
+$ npm install
+$ npm run preview
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## API
+The app fetches data from the open-source [Hyrule Compendium API](https://github.com/gadhagod/Hyrule-Compendium-API), which provides information for in-game items and regions from *Breath of the Wild* and *Tears of the Kingdom*.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Design
+I went with a fairly clean/professional UI design for the app, as I've already built a similar application with a more outside-the-box design, (see, [OSRS Stock App](https://austin-weeks.github.io/osrs-ge-app)).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- TODO: add ligma link
