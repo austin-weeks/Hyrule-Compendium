@@ -12,7 +12,7 @@ const EntryPreview = ({entry}: {entry: Entry}) => {
 
   return (
     <Card
-      className="flex flex-row items-start p-3
+      className="flex flex-row items-start p-2 sm:p-3
         cursor-pointer
         hover:bg-zinc-100
         active:shadow-inner

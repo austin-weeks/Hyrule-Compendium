@@ -17,31 +17,33 @@ const ItemPage = () => {
   const nextEntry = context.entries.find(entry => entry.id === id + 1);
 
   return (
-    <div className="flex flex-col gap-2 px-4 max-w-[925px] mx-auto">
+    <div className="flex flex-col px-4 overflow-auto max-w-[925px] mx-auto">
       <hr />
-      <div className="flex flex-row gap-6 justify-between py-2">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-center sm:items-start justify-between py-2 sm:py-4
+        overflow-auto"
+      >
         <div className="flex flex-col gap-2 w-full">
-          <h2 className="font-medium text-5xl flex flex-row items-center justify-between gap-2">
+          <h2 className="font-medium text-4xl sm:text-5xl flex flex-row items-center justify-between gap-2">
             {name}
             <span className="text-zinc-500">#{id}</span>
           </h2>
           <hr />
-          <div className="text-justify text-lg max-w-prose">
+          <div className="text-justify text-base sm:text-lg max-w-prose">
             {description}
           </div>
 
           <MiscInfo entry={context.selectedEntry} />
 
         </div>
-      
+
         <img src={image} alt={name}
-          className="aspect-square object-cover size-full max-h-80 max-w-80
+          className="aspect-square object-cover size-full max-h-60 max-w-60 md:max-h-80 md:max-w-80
             rounded-lg shadow-lg"
         />
       </div>
       <hr />
 
-      <div className="flex flex-row justify-between pt-1.5">
+      <div className="flex flex-col-reverse gap-2 sm:flex-row justify-between pt-2 sm:pt-3.5 pb-2.5">
         {prevEntry ? <NextEntry entry={prevEntry} direction="previous" /> : <div />} 
         {nextEntry ? <NextEntry entry={nextEntry} direction="next" /> : <div />} 
       </div>
@@ -59,12 +61,12 @@ const MiscInfo = ({ entry }: {entry: Entry}) => {
     return (
       <>
         <hr />
-        <div className="flex flex-row justify-between py-1">
+        <div className="flex flex-row justify-between items-center py-1">
           <div className="flex flex-row items-center gap-2">
             {icon}
-            <h4 className="font-medium text-[1.05rem]">{heading}</h4>
+            <h4 className="font-medium text-base sm:text-[1.05rem]">{heading}</h4>
           </div>
-          <div className="flex flex-row flex-wrap pl-12 justify-end">
+          <div className="flex flex-row flex-wrap text-sm sm:text-base pl-12 justify-end">
             <BulletSeparatedList list={list} />
           </div>
         </div>
@@ -88,6 +90,7 @@ const MiscInfo = ({ entry }: {entry: Entry}) => {
         <InfoRow icon={<CookingPot />} heading="Cooking Effect" list={[capitalizeWords(cooking_effect)]} />}
       {hearts_recovered && 
         <InfoRow icon={<Heart />} heading="Hearts Recoverd" list={[hearts_recovered]} />}
+      <hr className="sm:hidden" />
     </div>
   );
 }

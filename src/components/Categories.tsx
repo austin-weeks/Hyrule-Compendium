@@ -2,18 +2,17 @@ import { useContext } from "react";
 import { Button } from "./ui/button";
 import { DataContext } from "@/App";
 
-
 const Categories = () => {
   const context = useContext(DataContext);
   if (!context) return;
-  const { changeCategory, setSelectedEntry } = context;
+  const { changeCategory } = context;
 
   return (
     <div className="flex flex-row flex-wrap gap-1.5 justify-center">
       <Button variant="outline"
         isActive={context.category === 'creatures'}
         size="lg"
-        className="text-xl"
+        className="text-base sm:text-xl"
         onClick={() => changeCategory('creatures')}
       >
         Creatures
@@ -21,7 +20,7 @@ const Categories = () => {
       <Button variant="outline"
         isActive={context.category === 'monsters'}
         size="lg"
-        className="text-xl"
+        className="text-base sm:text-xl"
         onClick={() => changeCategory('monsters')}
       >
         Monsters
@@ -29,7 +28,7 @@ const Categories = () => {
       <Button variant="outline"
         isActive={context.category === 'materials'}
         size="lg"
-        className="text-xl"
+        className="text-base sm:text-xl"
         onClick={() => changeCategory('materials')}
       >
         Materials
@@ -37,7 +36,7 @@ const Categories = () => {
       <Button variant="outline"
         isActive={context.category === 'equipment'}
         size="lg"
-        className="text-xl"
+        className="text-base sm:text-xl"
         onClick={() => changeCategory('equipment')}
       >
         Equipment
@@ -45,7 +44,7 @@ const Categories = () => {
       <Button variant="outline"
         isActive={context.category === 'treasure'}
         size="lg"
-        className="text-xl"
+        className="text-base sm:text-xl"
         onClick={() => changeCategory('treasure')}
       >
         Treasure

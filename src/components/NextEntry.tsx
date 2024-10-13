@@ -16,7 +16,7 @@ const NextEntry = ({ entry, direction }: NextEntryProps) => {
 
   return (
     <Card
-      className="flex flex-row gap-3 items-center p-2
+      className="flex flex-row gap-3 items-center p-1 sm:p-2
         cursor-pointer
         hover:bg-zinc-100
         active:shadow-inner
