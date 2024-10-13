@@ -6,7 +6,7 @@ const Header = (props: React.PropsWithChildren) => {
   const setCategory = useContext(DataContext)?.changeCategory;
 
   return (
-    <div className="flex sticky top-0 flex-col gap-4 py-4 mx-auto w-full bg-white text-center">
+    <div className="flex sticky top-0 flex-col gap-4 pt-5 pb-3 mx-auto w-full bg-white text-center">
       <h1
         className="text-5xl font-hylian lg:text-5xl hover:cursor-pointer mx-auto w-auto"
         onClick={() => {if (setCategory) setCategory('HOME')}}

@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
 import fetchData, { category, Entries } from './api/fetch';
-import LandingPage from './components/LandingPage';
-import ListPage from './components/ListPages';
 import Entry from './api/entry-type';
-import ItemPage from './components/ItemPage';
 import Header from './components/Header';
+import ErrorMessage from './components/ErrorMessage';
+import { LoadingSpinner } from './components/ui/spinner';
+import CategoryPage from './pages/CategoryPage';
+import ItemPage from './pages/ItemPage';
+import LandingPage from './pages/LandingPage';
 
 type AppData = {
   category: category,
@@ -17,6 +19,7 @@ type AppData = {
 export const DataContext = createContext<AppData>(null)
 
 const App = () => {
+  const [error, setError] = useState(false);
   const [category, setCategory] = useState<category>('HOME');
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [entries, setEntries] = useState<Entries>(null);
@@ -28,16 +31,26 @@ const App = () => {
 
   useEffect(() => {
     async function loadData() {
-      setEntries('loading');
-      setEntries(await fetchData(category));
+      try {
+        setEntries(null);
+        setEntries(await fetchData(category));
+      } catch (e) {
+        setError(true);
+      }
     }
     loadData();
   }, [category]);
 
   let content;
-  if (selectedEntry) content = <ItemPage />
+  if (error) content = <ErrorMessage />
+  else if (selectedEntry) content = <ItemPage />
   else if (category === 'HOME') content = <LandingPage />
-  else content = <ListPage />
+  else if (!entries) content = (
+    <div className='flex justify-center flex-grow'>
+      <LoadingSpinner />
+    </div>
+  );
+  else content = <CategoryPage />
 
   return (
     <DataContext.Provider
@@ -49,7 +62,7 @@ const App = () => {
         entries
       }}
     >
-      <main className='size-full flex flex-col'>
+      <main className='size-full flex flex-col items-center'>
         <Header />
         {content}
       </main>

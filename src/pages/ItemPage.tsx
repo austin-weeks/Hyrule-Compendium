@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { DataContext } from "@/App";
-import NextEntry from "./NextEntry";
 import { capitalizeWords } from "@/utils";
 import Entry from "@/api/entry-type";
-import BulletSeparatedList from "./BullutSeparatedList";
 import { Bone, CookingPot, Heart, Map, Shield, Sword } from "lucide-react";
+import BulletSeparatedList from "@/components/BullutSeparatedList";
+import NextEntry from "@/components/NextEntry";
 
 const ItemPage = () => {
   const context = useContext(DataContext);
@@ -17,7 +17,7 @@ const ItemPage = () => {
   const nextEntry = context.entries.find(entry => entry.id === id + 1);
 
   return (
-    <div className="flex flex-col gap-2 px-4 max-w-[900px] mx-auto">
+    <div className="flex flex-col gap-2 px-4 max-w-[925px] mx-auto">
       <hr />
       <div className="flex flex-row gap-6 justify-between py-2">
         <div className="flex flex-col gap-2 w-full">
@@ -25,15 +25,17 @@ const ItemPage = () => {
             {name}
             <span className="text-zinc-500">#{id}</span>
           </h2>
+          <hr />
           <div className="text-justify text-lg max-w-prose">
             {description}
           </div>
 
           <MiscInfo entry={context.selectedEntry} />
+
         </div>
       
         <img src={image} alt={name}
-          className="aspect-square object-cover h-full max-h-80
+          className="aspect-square object-cover size-full max-h-80 max-w-80
             rounded-lg shadow-lg"
         />
       </div>
@@ -71,10 +73,6 @@ const MiscInfo = ({ entry }: {entry: Entry}) => {
   }
 
   const {common_locations, drops, properties, cooking_effect, hearts_recovered } = entry;
-
-  const rows = [
-
-  ].filter(row => row);
   
   return (
     <div className="flex flex-col gap-1">
@@ -82,10 +80,10 @@ const MiscInfo = ({ entry }: {entry: Entry}) => {
         <InfoRow icon={<Map />} heading="Locations" list={common_locations} />}
       {(drops && drops.length > 0) && 
         <InfoRow icon={<Bone />} heading="Drops" list={drops.map(drop => capitalizeWords(drop))} />}
-      {properties?.attack && 
-        <InfoRow icon={<Sword />} heading="Weapon Strength" list={[properties.attack]} />}
-      {properties?.defense && 
-        <InfoRow icon={<Shield />} heading="Equipment Defense" list={[properties.defense]} />}
+      {properties?.attack ?
+        <InfoRow icon={<Sword />} heading="Weapon Strength" list={[properties.attack]} />: null}
+      {properties?.defense ? 
+        <InfoRow icon={<Shield />} heading="Equipment Defense" list={[properties.defense]} />: null}
       {cooking_effect && 
         <InfoRow icon={<CookingPot />} heading="Cooking Effect" list={[capitalizeWords(cooking_effect)]} />}
       {hearts_recovered && 

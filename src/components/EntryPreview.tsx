@@ -15,6 +15,7 @@ const EntryPreview = ({entry}: {entry: Entry}) => {
       className="flex flex-row items-start p-3
         cursor-pointer
         hover:bg-zinc-100
+        active:shadow-inner
         transition-colors
         max-w-[26rem]
       "
@@ -44,7 +45,5 @@ const EntryPreview = ({entry}: {entry: Entry}) => {
     </Card>
   );
 }
-
-
 
 export default EntryPreview;

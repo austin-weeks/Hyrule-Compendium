@@ -19,6 +19,7 @@ const NextEntry = ({ entry, direction }: NextEntryProps) => {
       className="flex flex-row gap-3 items-center p-2
         cursor-pointer
         hover:bg-zinc-100
+        active:shadow-inner
         transition-colors
       "
       onClick={() => setSelectedEntry(entry)}
