@@ -17,7 +17,7 @@ const ItemPage = () => {
   const nextEntry = context.entries.find(entry => entry.id === id + 1);
 
   return (
-    <div className="flex flex-col px-4 overflow-auto max-w-[925px] mx-auto">
+    <div className="flex flex-col px-4 overflow-auto max-w-[925px] mx-auto fade-in">
       <hr />
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-center sm:items-start justify-between py-2 sm:py-4
         overflow-auto"

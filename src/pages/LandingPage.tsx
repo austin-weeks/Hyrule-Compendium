@@ -1,7 +1,7 @@
 import AboutDrawer from "@/components/AboutDrawer";
 
 const LandingPage = () => (
-  <div className="flex flex-col py-2 flex-grow justify-between gap-2">
+  <div className="flex flex-col py-2 flex-grow justify-between gap-2 fade-in">
     <div className="mx-auto">
       <picture>
         <img src="/koroks.png" alt="" className="max-w-[100vw] object-cover px-2 w-[500px] mx-auto" />

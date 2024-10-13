@@ -24,6 +24,18 @@
   font-family: 'Hylian';
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+.fade-in {
+  animation: fadeIn 300ms ease;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
