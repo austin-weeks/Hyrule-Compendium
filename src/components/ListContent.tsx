@@ -54,7 +54,7 @@ const ListContent = () => {
       <div
         ref={displayRef}
         className="flex flex-row flex-wrap justify-center gap-2
-          max-w-[1200px] px-2"
+          max-w-[1300px] px-2"
       >
         {entries?.slice(startIndex, startIndex + entriesPerPage)
           .map(entry => <EntryPreview entry={entry} key={entry.id} />)

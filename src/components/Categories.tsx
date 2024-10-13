@@ -1,33 +1,53 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Button } from "./ui/button";
 import { DataContext } from "@/App";
-import { category } from "@/api/fetch";
+
 
 const Categories = () => {
   const context = useContext(DataContext);
   if (!context) return;
-  const {setCategory, setSelectedEntry } = context;
-
-  const updateCategory = (category: category) => {
-    setCategory(category);
-    setSelectedEntry(null);
-  }
+  const { changeCategory, setSelectedEntry } = context;
 
   return (
     <div className="flex flex-row flex-wrap gap-1.5 justify-center">
-      <Button variant="outline" size="lg" className="text-xl" onClick={() => updateCategory('creatures')}>
+      <Button variant="outline"
+        isActive={context.category === 'creatures'}
+        size="lg"
+        className="text-xl"
+        onClick={() => changeCategory('creatures')}
+      >
         Creatures
       </Button>
-      <Button variant="outline" size="lg" className="text-xl" onClick={() => updateCategory('monsters')}>
+      <Button variant="outline"
+        isActive={context.category === 'monsters'}
+        size="lg"
+        className="text-xl"
+        onClick={() => changeCategory('monsters')}
+      >
         Monsters
       </Button>
-      <Button variant="outline" size="lg" className="text-xl" onClick={() => updateCategory('materials')}>
+      <Button variant="outline"
+        isActive={context.category === 'materials'}
+        size="lg"
+        className="text-xl"
+        onClick={() => changeCategory('materials')}
+      >
         Materials
       </Button>
-      <Button variant="outline" size="lg" className="text-xl" onClick={() => updateCategory('equipment')}>
+      <Button variant="outline"
+        isActive={context.category === 'equipment'}
+        size="lg"
+        className="text-xl"
+        onClick={() => changeCategory('equipment')}
+      >
         Equipment
       </Button>
-      <Button variant="outline" size="lg" className="text-xl" onClick={() => updateCategory('treasure')}>
+      <Button variant="outline"
+        isActive={context.category === 'treasure'}
+        size="lg"
+        className="text-xl"
+        onClick={() => changeCategory('treasure')}
+      >
         Treasure
       </Button>
     </div>

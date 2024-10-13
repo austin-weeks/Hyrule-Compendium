@@ -7,7 +7,8 @@ type Entry = {
   descriptionShort: string,
   image: string,
   common_locations: string[] | null,
-  dlc: boolean
+
+  // dlc: boolean
 
   // Monsters
   drops?: string[] | null,
@@ -16,7 +17,7 @@ type Entry = {
   properties?: { attack: number; defense: number; },
 
   //Creatures
-  edible?: boolean,
+  // edible?: boolean,
 
   //Materials & Creatures
   hearts_recovered?: number,

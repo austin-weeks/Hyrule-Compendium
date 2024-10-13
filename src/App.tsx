@@ -8,7 +8,7 @@ import Header from './components/Header';
 
 type AppData = {
   category: category,
-  setCategory: (category: category) => void,
+  changeCategory: (category: category) => void,
   selectedEntry: Entry | null,
   setSelectedEntry: (entryy: Entry | null) => void,
   entries: Entries,
@@ -20,6 +20,11 @@ const App = () => {
   const [category, setCategory] = useState<category>('HOME');
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [entries, setEntries] = useState<Entries>(null);
+
+  const changeCategory = (category: category) => {
+    setSelectedEntry(null);
+    setCategory(category);
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -38,14 +43,16 @@ const App = () => {
     <DataContext.Provider
       value={{
         category,
-        setCategory,
+        changeCategory,
         selectedEntry,
         setSelectedEntry,
         entries
       }}
     >
-      <Header />
-      {content}
+      <main className='size-full flex flex-col'>
+        <Header />
+        {content}
+      </main>
     </DataContext.Provider>
   )
 }

@@ -15,11 +15,9 @@ const ListPage = () => {
   else content = <ListContent />
 
   return (
-    <main>
       <div className="flex justify-center">
         {content}
       </div>
-    </main>
   );
 }
 
