@@ -4,10 +4,10 @@ import { Button } from "./ui/button";
 
 const ErrorMessage = () => {
   return (
-    <Alert className="bg-zinc-50 max-w-100 w-[450px]">
+    <Alert className="bg-zinc-50 max-w-[95vw] w-[450px]">
       <AlertCircle className="mt-0.5"/>
       <div className="ml-2">
-        <AlertTitle className="text-2xl">Something Went Wrong :(</AlertTitle>
+        <AlertTitle className="text-xl sm:text-2xl">Something Went Wrong :(</AlertTitle>
         <AlertDescription className="text-base">
           <span>Please try again.</span>
         </AlertDescription>

@@ -22,9 +22,7 @@ const CategoryPage = () => {
     setPageNumber(newPage);
   }
 
-  useEffect(() => {
-    setPageNumber(1);
-  }, [context.category]);
+  useEffect(() => setPageNumber(1), [context.category]);
 
   return (
     <div className="flex flex-col justify-between overflow-auto flex-grow pb-3 px-4 w-full">

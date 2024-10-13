@@ -12,7 +12,7 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
   const category = useContext(DataContext)?.category;
   if (!category) return;
   const [_onRender, reRender] = useReducer(x => x + 1, 0);
-  const [paginations, setPaginations] = useState([1]);
+  const [paginations, _setPaginations] = useState<number[]>([1]);
 
   useEffect(() => {
     window.addEventListener('resize', reRender);
@@ -20,10 +20,9 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
   }, [])
 
   const updatePaginations = (startPage: number, endPage: number) => {
-    console.log(startPage, endPage)
     const pageRangeArr = [];
     for (let i = startPage; i <= endPage; i++) pageRangeArr.push(i);
-    setPaginations(Array.from(new Set([1, ...pageRangeArr, maxPages])));
+    _setPaginations(Array.from(new Set([1, ...pageRangeArr, maxPages])));
   }
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
       updatePaginations(1, maxPages);
       return;
     }
-    //Determine lowest page num to display
+
     const distToBottom = pageNumber - 1;
     const distToTop = maxPages - pageNumber;
     if (distToBottom < distToTop) {
@@ -55,8 +54,6 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
   }, [_onRender, pageNumber, maxPages])
 
 
-
-  console.log(paginations)
   return (
     <Pagination>
       <PaginationContent>
@@ -67,28 +64,13 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
           />
         </PaginationItem>
         <span className="hidden sm:flex flex-row items-center">
-          {paginations.map((pg, ind) => {
-              // if second element and not page 2
-              // or if second to last element and not second to last page
-              if ((ind === 1 && pg !== 2) ||
-                (ind === paginations.length - 2 && pg !== maxPages - 1)
-              ) return (
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              );
-              else return (
-                <PaginationLink
-                  key={pg}
-                  isActive={pageNumber === pg}
-                  onClick={() => changePage(pg)}
-                >
-                  {pg}
-                </PaginationLink>
-              );
-            })
-          }
-          </span>
+          <PageButtons
+            paginations={paginations}
+            pageNumber={pageNumber}
+            maxPages={maxPages}
+            changePage={changePage}
+          />
+        </span>
         <PaginationItem>
           <PaginationNext
             className={`${pageNumber === maxPages && 'hover:cursor-default hover:bg-inherit text-zinc-500 hover:text-zinc-500'}`}
@@ -99,5 +81,34 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
     </Pagination>
   )
 }
+
+type PageButtonsProps = {
+  paginations: number[]
+  pageNumber: number
+  maxPages: number
+  changePage: (newPage: number) => void
+}
+const PageButtons = ({ paginations, pageNumber, maxPages, changePage }: PageButtonsProps) => (
+  paginations.map((pg, ind) => {
+    // if second element and not page 2
+    // or if second to last element and not second to last page
+    if ((ind === 1 && pg !== 2) ||
+      (ind === paginations.length - 2 && pg !== maxPages - 1)
+    ) return (
+      <PaginationItem key={ind}>
+        <PaginationEllipsis />
+      </PaginationItem>
+    );
+    else return (
+      <PaginationLink
+        key={ind}
+        isActive={pageNumber === pg}
+        onClick={() => changePage(pg)}
+      >
+        {pg}
+      </PaginationLink>
+    );
+  })
+);
 
 export default PageNumbers;

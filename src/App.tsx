@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react'
-import fetchData, { category, Entries } from './api/fetch';
+import fetchData, { Entries } from './api/fetch';
 import Entry from './api/entry-type';
 import Header from './components/Header';
 import ErrorMessage from './components/ErrorMessage';
@@ -7,6 +7,9 @@ import { LoadingSpinner } from './components/ui/spinner';
 import CategoryPage from './pages/CategoryPage';
 import ItemPage from './pages/ItemPage';
 import LandingPage from './pages/LandingPage';
+
+//Compendium category names || HOME -> app homepage
+export type category = 'creatures' | 'monsters' | 'materials' | 'equipment' | 'treasure' | 'HOME';
 
 type AppData = {
   category: category,
@@ -20,13 +23,13 @@ export const DataContext = createContext<AppData>(null)
 
 const App = () => {
   const [error, setError] = useState(false);
-  const [category, setCategory] = useState<category>('HOME');
+  const [category, _setCategory] = useState<category>('HOME');
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [entries, setEntries] = useState<Entries>(null);
 
   const changeCategory = (category: category) => {
     setSelectedEntry(null);
-    setCategory(category);
+    _setCategory(category);
   }
 
   useEffect(() => {

@@ -1,10 +1,8 @@
 import { capitalizeWords, truncateText } from "@/utils";
 import Entry from "./entry-type";
+import { category } from "@/App";
 
 const compendiumBaseUrl = 'https://botw-compendium.herokuapp.com/api/v3/compendium/category/';
-
-//Compendium category names || HOME -> app homepage
-export type category = 'creatures' | 'monsters' | 'materials' | 'equipment' | 'treasure' | 'HOME';
 
 export type Entries = Entry[] | null;
 

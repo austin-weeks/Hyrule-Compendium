@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Categories from "./Categories";
 import { DataContext } from "@/App";
 
-const Header = (props: React.PropsWithChildren) => {
+const Header = () => {
   const setCategory = useContext(DataContext)?.changeCategory;
 
   return (
@@ -13,7 +13,6 @@ const Header = (props: React.PropsWithChildren) => {
       >
         The Hyrule Compendium
       </h1>
-      {props.children}
       <Categories />
     </div>
   )

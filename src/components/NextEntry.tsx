@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle } from "./ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type NextEntryProps = {
-  entry: Entry,
+  entry: Entry
   direction: 'previous' | 'next'
 }
 const NextEntry = ({ entry, direction }: NextEntryProps) => {

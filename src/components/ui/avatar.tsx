@@ -10,7 +10,7 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      "relative flex shrink-0 overflow-hidden",
       className
     )}
     {...props}
@@ -21,13 +21,17 @@ Avatar.displayName = AvatarPrimitive.Root.displayName
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const [loaded, setLoaded] = React.useState(false);
+  
+  return (
+    <AvatarPrimitive.Image
+      onLoad={() => setLoaded(true)}
+      ref={ref}
+      className={`aspect-square h-full w-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
+      {...props}
+    />
+)})
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
 const AvatarFallback = React.forwardRef<
