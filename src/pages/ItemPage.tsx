@@ -11,13 +11,12 @@ const ItemPage = () => {
   if (!context?.selectedEntry) return;
   const { name, id, description, image } = context.selectedEntry;
 
-  //@ts-ignore
+  if (!context.entries) return;
   const prevEntry = context.entries.find(entry => entry.id === id - 1);
-  //@ts-ignore
   const nextEntry = context.entries.find(entry => entry.id === id + 1);
 
   return (
-    <div className="flex flex-col px-4 overflow-auto max-w-[925px] mx-auto fade-in">
+    <div className="flex flex-col px-2 sm:px-4 overflow-auto max-w-[925px] mx-auto fade-in">
       <hr />
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-center sm:items-start justify-between py-2 sm:py-4
         overflow-auto"

@@ -4,20 +4,26 @@ import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { DataContext } from "@/App";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-
-const EntryPreview = ({entry}: {entry: Entry}) => {
+type EntryPreviewProps = {
+  entry: Entry
+  searchString?: string
+}
+const EntryPreview = ({ entry, searchString }: EntryPreviewProps) => {
   const setSelectedEntry = useContext(DataContext)?.setSelectedEntry;
   if (!setSelectedEntry) return;
 
   return (
     <Card
-      className="flex flex-row items-start p-2 sm:p-3
+      className={`${!searchString || (entry.name.toLowerCase().includes(searchString) || entry.id.toString().includes(searchString)) ? 
+          'flex' : 'hidden'
+        }
+        flex-row items-start p-2 sm:p-3
         cursor-pointer
         hover:bg-zinc-100
         active:shadow-inner
         transition-colors
         max-w-[26rem]
-      "
+      `}
       onClick={() => setSelectedEntry(entry)}
     >
       <Avatar className="flex-shrink-0 size-[98px] rounded-sm shadow-md aspect-square object-cover">

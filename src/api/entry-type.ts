@@ -1,8 +1,10 @@
+import { category } from "@/App";
+
 type Entry = {
   // Base Data for all items
   name: string,
   id: number,
-  category: string,
+  category: category,
   description: string,
   descriptionShort: string,
   image: string,

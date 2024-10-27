@@ -16,7 +16,7 @@ const compendiumData = {
 };
 
 const fetchData = async (category: category): Promise<Entries> => {
-  if (category === 'HOME') return null;
+  if (category === 'HOME' || category === 'search') return null;
   if (compendiumData[category]) return compendiumData[category];
   const resp = await fetch(compendiumBaseUrl + category);
   const json = await resp.json();
@@ -30,4 +30,5 @@ const fetchData = async (category: category): Promise<Entries> => {
   compendiumData[category] = data;
   return data;
 }
+
 export default fetchData;

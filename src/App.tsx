@@ -7,16 +7,18 @@ import { LoadingSpinner } from './components/ui/spinner';
 import CategoryPage from './pages/CategoryPage';
 import ItemPage from './pages/ItemPage';
 import LandingPage from './pages/LandingPage';
+import SearchPage from './pages/SearchPage';
 
-//Compendium category names || HOME -> app homepage
-export type category = 'creatures' | 'monsters' | 'materials' | 'equipment' | 'treasure' | 'HOME';
+//Compendium category names || HOME -> app homepage || search -> search page
+export type category = 'creatures' | 'monsters' | 'materials' | 'equipment' | 'treasure' | 'search' | 'HOME';
 
 type AppData = {
-  category: category,
-  changeCategory: (category: category) => void,
-  selectedEntry: Entry | null,
-  setSelectedEntry: (entryy: Entry | null) => void,
-  entries: Entries,
+  category: category
+  changeCategory: (category: category) => void
+  selectedEntry: Entry | null
+  setSelectedEntry: (entryy: Entry | null) => void
+  entries: Entries
+  throwError: () => void
 } | null;
 
 export const DataContext = createContext<AppData>(null)
@@ -24,12 +26,16 @@ export const DataContext = createContext<AppData>(null)
 const App = () => {
   const [error, setError] = useState(false);
   const [category, _setCategory] = useState<category>('HOME');
-  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
+  const [selectedEntry, _setSelectedEntry] = useState<Entry | null>(null);
   const [entries, setEntries] = useState<Entries>(null);
 
   const changeCategory = (category: category) => {
-    setSelectedEntry(null);
+    _setSelectedEntry(null);
     _setCategory(category);
+  }
+  const setSelectedEntry = (entry: Entry | null) => {
+    if (entry) _setCategory(entry.category)
+    _setSelectedEntry(entry);
   }
 
   useEffect(() => {
@@ -48,6 +54,7 @@ const App = () => {
   if (error) content = <ErrorMessage />
   else if (selectedEntry) content = <ItemPage />
   else if (category === 'HOME') content = <LandingPage />
+  else if (category === 'search') content = <SearchPage />
   else if (!entries) content = (
     <div className='flex justify-center flex-grow'>
       <LoadingSpinner />
@@ -62,7 +69,8 @@ const App = () => {
         changeCategory,
         selectedEntry,
         setSelectedEntry,
-        entries
+        entries,
+        throwError: () => setError(true)
       }}
     >
       <main className='size-full flex flex-col items-center'>

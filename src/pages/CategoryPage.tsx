@@ -25,7 +25,7 @@ const CategoryPage = () => {
   useEffect(() => setPageNumber(1), [context.category]);
 
   return (
-    <div className="flex flex-col justify-between overflow-auto flex-grow pb-3 px-4 w-full fade-in">
+    <div className="flex flex-col justify-between overflow-auto flex-grow pb-3 px-2 sm:px-4 w-full fade-in">
       <hr/>
       <div className="flex flex-row flex-wrap justify-center gap-2
           max-w-[1300px] mx-auto
