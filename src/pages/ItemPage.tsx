@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { DataContext } from "@/App";
-import { capitalizeWords } from "@/utils";
+import { capitalizeWords, triggerFade } from "@/utils";
 import Entry from "@/api/entry-type";
 import { Bone, CookingPot, Heart, Map, Shield, Sword } from "lucide-react";
 import BulletSeparatedList from "@/components/BullutSeparatedList";
@@ -15,8 +15,13 @@ const ItemPage = () => {
   const prevEntry = context.entries.find(entry => entry.id === id - 1);
   const nextEntry = context.entries.find(entry => entry.id === id + 1);
 
+  const pageRef = useRef<HTMLDivElement>(null);
+  useEffect(() => triggerFade(pageRef, 'med'), [context?.selectedEntry]);
+
   return (
-    <div className="flex flex-col px-2 sm:px-4 overflow-auto max-w-[925px] mx-auto fade-in">
+    <div className="flex flex-col px-2 sm:px-4 overflow-auto max-w-[925px] mx-auto fade-in"
+      ref={pageRef}
+    >
       <hr />
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-center sm:items-start justify-between py-2 sm:py-4
         overflow-auto"

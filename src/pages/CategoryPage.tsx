@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import EntryPreview from "../components/EntryPreview";
 import { DataContext } from "@/App";
 import PageNumbers from "@/components/PageNumber";
+import { triggerFade } from "@/utils";
 
 const entriesPerPage = 12;
 
@@ -24,12 +25,16 @@ const CategoryPage = () => {
 
   useEffect(() => setPageNumber(1), [context.category]);
 
+  const entriesRef = useRef<HTMLDivElement>(null);
+  useEffect(() => triggerFade(entriesRef), [context.category, pageNumber]);
+
   return (
     <div className="flex flex-col justify-between overflow-auto flex-grow pb-3 px-2 sm:px-4 w-full fade-in">
       <hr/>
       <div className="flex flex-row flex-wrap justify-center gap-2
           max-w-[1300px] mx-auto
           overflow-auto py-3"
+        ref={entriesRef}
       >
         {entries?.slice(startIndex, startIndex + entriesPerPage)
           .map(entry => <EntryPreview entry={entry} key={entry.id} />)

@@ -4,8 +4,9 @@ import { DataContext } from "@/App";
 import EntryPreview from "@/components/EntryPreview";
 import { Input } from "@/components/ui/input";
 import { LoadingSpinner } from "@/components/ui/spinner";
+import { triggerFade } from "@/utils";
 import { Search } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 const SearchPage = () => {
   const context = useContext(DataContext);
@@ -37,6 +38,9 @@ const SearchPage = () => {
     loadEntries();
   }, []);
 
+  const resultsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => triggerFade(resultsRef, 'light'), [search]);
+
   if (allEntries === null) return (
     <div className='flex justify-center flex-grow'>
       <LoadingSpinner />
@@ -64,14 +68,9 @@ const SearchPage = () => {
       <div className="flex flex-row flex-wrap justify-center gap-2
           max-w-[1300px] mx-auto
           overflow-auto py-3"
+        ref={resultsRef}
       >
         {allEntries.map(entry => <EntryPreview searchString={search} entry={entry} key={entry.id} />)}
-        {/* {results.length > 0 ? 
-          results.map(entry => <EntryPreview entry={entry} key={entry.id} />) :
-          <div className="text-2xl text-zinc-500">
-            No Results Found :(
-          </div>
-        } */}
       </div>
     </div>
   );
