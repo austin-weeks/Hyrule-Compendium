@@ -53,13 +53,14 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
     }
   }, [_onRender, pageNumber, maxPages])
 
+  const disabledNextPrevClasses = 'hover:cursor-default hover:bg-inherit dark:hover:bg-inherit text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-500';
 
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            className={`${pageNumber === 1 && 'hover:cursor-default hover:bg-inherit text-zinc-500 hover:text-zinc-500'}`}
+            className={`${pageNumber === 1 && disabledNextPrevClasses}`}
             onClick={() => changePage(pageNumber - 1)}
           />
         </PaginationItem>
@@ -73,7 +74,7 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
         </span>
         <PaginationItem>
           <PaginationNext
-            className={`${pageNumber === maxPages && 'hover:cursor-default hover:bg-inherit text-zinc-500 hover:text-zinc-500'}`}
+            className={`${pageNumber === maxPages && disabledNextPrevClasses}`}
             onClick={() => changePage(pageNumber + 1)}
           />
         </PaginationItem>

@@ -19,6 +19,7 @@ const NextEntry = ({ entry, direction }: NextEntryProps) => {
       className="flex flex-row gap-3 items-center p-1 sm:p-2
         cursor-pointer
         hover:bg-zinc-100
+        dark:hover:bg-zinc-800
         active:shadow-inner
         transition-colors
       "

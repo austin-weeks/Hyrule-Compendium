@@ -13,7 +13,7 @@ const buttonVariants = cva(
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
         outline:
-          "border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+          "border border-zinc-200 bg-white hover:bg-zinc-100 active:shadow-inner hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
         secondary:
           "border border-zinc-200 bg-zinc-100 text-zinc-900 hover:bg-zinc-100/80 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
         ghost: "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
@@ -23,7 +23,7 @@ const buttonVariants = cva(
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-8 px-3 py-2 sm:h-11 sm:rounded-md sm:px-5",
-        icon: "h-10 w-10",
+        icon: "h-6 sm:h-10 w-6 sm:w-10",
       },
     },
     defaultVariants: {
@@ -40,7 +40,7 @@ export interface ButtonProps
   isActive?: boolean
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps> (
   ({ className, variant, size, asChild = false, isActive=false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     if (isActive) variant = 'secondary';

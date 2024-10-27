@@ -2,12 +2,12 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, Dr
 
 const AboutDrawer = () => (
   <Drawer>
-    <DrawerTrigger className="bg-inherit transition-colors hover:bg-zinc-100 active:bg-zinc-200 py-2 px-4 rounded-sm mx-auto text-[0.9rem] text-zinc-500">
+    <DrawerTrigger className="bg-inherit transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 py-2 px-4 rounded-sm mx-auto text-[0.9rem] text-zinc-500">
       About
     </DrawerTrigger>
     <DrawerContent className="w-96 max-w-full mx-auto">
       <DrawerHeader>
-        <DrawerTitle className="text-center">
+        <DrawerTitle className="text-center dark:text-zinc-50">
           The Hyrule Compendium
         </DrawerTitle>
         <DrawerDescription className="text-center">

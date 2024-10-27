@@ -8,6 +8,7 @@ import CategoryPage from './pages/CategoryPage';
 import ItemPage from './pages/ItemPage';
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/SearchPage';
+import { ThemeToggle } from './components/ui/theme-toggle';
 
 //Compendium category names || HOME -> app homepage || search -> search page
 export type category = 'creatures' | 'monsters' | 'materials' | 'equipment' | 'treasure' | 'search' | 'HOME';
@@ -73,7 +74,13 @@ const App = () => {
         throwError: () => setError(true)
       }}
     >
-      <main className='size-full flex flex-col items-center'>
+      <main
+        className="size-full flex relative flex-col items-center
+          bg-white dark:bg-black
+          text-black dark:text-zinc-50
+        "
+      >
+        <ThemeToggle />
         <Header />
         {content}
       </main>

@@ -20,6 +20,7 @@ const EntryPreview = ({ entry, searchString }: EntryPreviewProps) => {
         flex-row items-start p-2 sm:p-3
         cursor-pointer
         hover:bg-zinc-100
+        dark:hover:bg-zinc-800
         active:shadow-inner
         transition-colors
         max-w-[26rem]
