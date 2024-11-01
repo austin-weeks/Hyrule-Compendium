@@ -12,11 +12,17 @@ const EntryPreview = ({ entry, searchString }: EntryPreviewProps) => {
   const setSelectedEntry = useContext(DataContext)?.setSelectedEntry;
   if (!setSelectedEntry) return;
 
+  const shouldShow =(): boolean => {
+    if (!searchString) return true;
+    if (entry.name.toLowerCase().includes(searchString)) return true;
+    if (entry.id.toString().includes(searchString)) return true;
+    if (entry.description.toLowerCase().includes(searchString)) return true;
+    return false;
+  }
+
   return (
     <Card
-      className={`${!searchString || (entry.name.toLowerCase().includes(searchString) || entry.id.toString().includes(searchString)) ? 
-          'flex' : 'hidden'
-        }
+      className={`${shouldShow() ? 'flex' : 'hidden'}
         flex-row items-start p-2 sm:p-3
         cursor-pointer
         hover:bg-zinc-100
