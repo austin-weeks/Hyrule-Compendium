@@ -2,7 +2,7 @@ import { capitalizeWords, truncateText } from "@/utils";
 import Entry from "./entry-type";
 import { category } from "@/App";
 
-const compendiumBaseUrl = 'https://botw-compendium.herokuapp.com/api/v3/compendium/category/';
+const BASE_URL = "https://api.hyrule-compendium.com/v3/compendium/category/";
 
 export type Entries = Entry[] | null;
 
@@ -12,13 +12,13 @@ const compendiumData = {
   equipment: null,
   materials: null,
   monsters: null,
-  treasure: null
+  treasure: null,
 };
 
-const fetchData = async (category: category): Promise<Entries> => {
-  if (category === 'HOME' || category === 'search') return null;
+export default async function (category: category): Promise<Entries> {
+  if (category === "HOME" || category === "search") return null;
   if (compendiumData[category]) return compendiumData[category];
-  const resp = await fetch(compendiumBaseUrl + category);
+  const resp = await fetch(BASE_URL + category);
   const json = await resp.json();
   const data: Entry[] = json.data;
   for (const entry of data) {
@@ -26,9 +26,7 @@ const fetchData = async (category: category): Promise<Entries> => {
     entry.descriptionShort = truncateText(entry.description);
   }
   data.sort((a, b) => a.id - b.id);
-  //@ts-ignore
+  // @ts-expect-error - API response is untyped
   compendiumData[category] = data;
   return data;
 }
-
-export default fetchData;

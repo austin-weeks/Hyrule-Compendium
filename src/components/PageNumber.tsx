@@ -1,33 +1,46 @@
-import { useState, useEffect, useContext, useReducer } from "react";
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationEllipsis, PaginationNext } from "./ui/pagination";
-import { DataContext } from "@/App";
+import { useState, useEffect, useReducer } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationLink,
+  PaginationEllipsis,
+  PaginationNext,
+} from "./ui/pagination";
+import { useDataContext } from "@/App";
 
 type PageNumbersProps = {
-  pageNumber: number
-  maxPages: number
-  changePage: (newPage: number) => void
-}
+  pageNumber: number;
+  maxPages: number;
+  changePage: (newPage: number) => void;
+};
 
-const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
-  const category = useContext(DataContext)?.category;
-  if (!category) return;
-  const [_onRender, reRender] = useReducer(x => x + 1, 0);
+const PageNumbers = ({
+  pageNumber,
+  maxPages,
+  changePage,
+}: PageNumbersProps) => {
+  const { category } = useDataContext();
+  const [_onRender, reRender] = useReducer((x) => x + 1, 0);
   const [paginations, _setPaginations] = useState<number[]>([1]);
 
   useEffect(() => {
-    window.addEventListener('resize', reRender);
-    return () => window.removeEventListener('resize', reRender);
-  }, [])
-
-  const updatePaginations = (startPage: number, endPage: number) => {
-    const pageRangeArr = [];
-    for (let i = startPage; i <= endPage; i++) pageRangeArr.push(i);
-    _setPaginations(Array.from(new Set([1, ...pageRangeArr, maxPages])));
-  }
+    window.addEventListener("resize", reRender);
+    return () => window.removeEventListener("resize", reRender);
+  }, []);
 
   useEffect(() => {
+    function updatePaginations(startPage: number, endPage: number) {
+      const pageRangeArr = [];
+      for (let i = startPage; i <= endPage; i++) pageRangeArr.push(i);
+      _setPaginations(Array.from(new Set([1, ...pageRangeArr, maxPages])));
+    }
+
     //Room for paginations minus whitespace and next/prev buttons
-    const paginationsThatCanFit = Math.floor((document.body.clientWidth - 300) / 45);
+    const paginationsThatCanFit = Math.floor(
+      (document.body.clientWidth - 300) / 45,
+    );
     //No need to truncate
     if (maxPages <= paginationsThatCanFit) {
       updatePaginations(1, maxPages);
@@ -51,9 +64,12 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
       const floor = Math.max(pageNumber - lowerRange, 1);
       updatePaginations(floor, ceil);
     }
-  }, [_onRender, pageNumber, maxPages])
+  }, [_onRender, pageNumber, maxPages]);
 
-  const disabledNextPrevClasses = 'hover:cursor-default hover:bg-inherit dark:hover:bg-inherit text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-500';
+  if (!category) return;
+
+  const disabledNextPrevClasses =
+    "hover:cursor-default hover:bg-inherit dark:hover:bg-inherit text-zinc-500 hover:text-zinc-500 dark:hover:text-zinc-500";
 
   return (
     <Pagination>
@@ -80,36 +96,43 @@ const PageNumbers = ({ pageNumber, maxPages, changePage}: PageNumbersProps) => {
         </PaginationItem>
       </PaginationContent>
     </Pagination>
-  )
-}
+  );
+};
 
 type PageButtonsProps = {
-  paginations: number[]
-  pageNumber: number
-  maxPages: number
-  changePage: (newPage: number) => void
-}
-const PageButtons = ({ paginations, pageNumber, maxPages, changePage }: PageButtonsProps) => (
+  paginations: number[];
+  pageNumber: number;
+  maxPages: number;
+  changePage: (newPage: number) => void;
+};
+const PageButtons = ({
+  paginations,
+  pageNumber,
+  maxPages,
+  changePage,
+}: PageButtonsProps) =>
   paginations.map((pg, ind) => {
     // if second element and not page 2
     // or if second to last element and not second to last page
-    if ((ind === 1 && pg !== 2) ||
+    if (
+      (ind === 1 && pg !== 2) ||
       (ind === paginations.length - 2 && pg !== maxPages - 1)
-    ) return (
-      <PaginationItem key={ind}>
-        <PaginationEllipsis />
-      </PaginationItem>
-    );
-    else return (
-      <PaginationLink
-        key={ind}
-        isActive={pageNumber === pg}
-        onClick={() => changePage(pg)}
-      >
-        {pg}
-      </PaginationLink>
-    );
-  })
-);
+    )
+      return (
+        <PaginationItem key={ind}>
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    else
+      return (
+        <PaginationLink
+          key={ind}
+          isActive={pageNumber === pg}
+          onClick={() => changePage(pg)}
+        >
+          {pg}
+        </PaginationLink>
+      );
+  });
 
 export default PageNumbers;
